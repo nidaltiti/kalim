@@ -1,50 +1,59 @@
 import xbmcgui
 import xbmcaddon
 from bs4 import BeautifulSoup as bs
-from urllib.request import urlopen
+import requests
 import os
  #name website quranpedia
-def Listnames ():
+def Listnames():
+    url = "https://surahquran.com/qura.html"
+    source="https://surahquran.com/"
+    response = requests.get(url)
+   
+    soup = bs(response.content, "html.parser")
+    contians = soup.find_all("a", {"class": "button"})
+    sound_Qraa = []
+    for index, name in enumerate(contians ):
+            Name = name.text.strip()
+            Name = " ".join(Name.split())
+            href = name["href"]
+            sound_Qraa.append({"name": Name, "href": source+ href})  # Encode as UTF-8
+    return sound_Qraa
+def list_sour(sour_url):
 
-    url="https://quranpedia.net/reciters"
-    client=urlopen(url)
-    html=client.read()
-    client.close()
-    soup=bs(html,"html.parser")
-    contians=soup.find_all("a",{"class":"fade-page"})
-    sound_Qraa =[]
-    for index, name in enumerate(contians, start=1):
-     if index>=20:
-      Name=name.text
-      Name=" ".join(Name.split())
-      sound_Qraa.append({"name": Name, "href": name["href"]})
-   # channels= [{"name":"عبد الباسط-  ","kind":"القارئ" ,"country":"فلسطين" ,"url":"","logo":"https://img.youm7.com/large/201903251226322632.jpg"}]
-    return   sound_Qraa 
-
-
-
-def list_sour (sour_url):
-
-  client=urlopen(sour_url)
-  html=client.read()
-  client.close()
-  soup=bs(html,"html.parser")
-  contians=soup.find_all("h6",{"class":"mb-0"})
-  contians_mp3=soup.find_all("a",{"class":"btn btn-sm btn-primary rounded-circle"})
- 
-  numberfile=0
-  sour =[]
-  for index, name in enumerate(contians, start=1):
-     
-      Name=name.text
-     # Name=" ".join(Name.split())
-      sour.append({"name": Name, "href":contians_mp3 [numberfile]["href"]})
-   # channels= [{"name":"عبد الباسط-  ","kind":"القارئ" ,"country":"فلسطين" ,"url":"","logo":"https://img.youm7.com/large/201903251226322632.jpg"}]
-      numberfile=numberfile+2
-  return   sour 
-
-  
-  pass
-  
+    resp = requests.get(sour_url)
+    soup = bs(resp.content, "html.parser")
+    content = soup.find_all("td", {"style": "font-size:17px"})
     
+    if content:
+         pass
+     #   print("content is not empty")
+    else:
+         content = soup.find_all("td")
+
     
+    sour = []
+    for index, sorahName in enumerate(content):
+        name = sorahName.text # Assuming the text inside td tag is the name
+        link = sorahName.find('a')['href'] 
+        if "https://surahquran.com/" in link:
+             pass
+        else:
+             link = "https://surahquran.com/"+link
+        #xbmcgui.Dialog().ok("", name) # Assuming you want to extract the href attribute of the first <a> tag found
+        sour.append({"name": name, "href": link})
+
+    return sour
+    #
+def Extract_Media(url):
+   # xbmcgui.Dialog().ok("", url)
+    playerfile = [] 
+    resp=requests.get(url)
+    soup=bs(resp.content,"html.parser")
+    link = soup.find("source")["src"]
+    title = soup.find('h1').text
+    find="no"
+    if link:
+         find="yes"
+    playerfile.append({"title":title,"link":link})
+   # xbmcgui.Dialog().ok("", title)
+    return playerfile
