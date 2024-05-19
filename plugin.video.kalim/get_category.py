@@ -5,7 +5,13 @@ class categories:
  
   Categories= [
         {"name": "إذاعة ", "url": "لقرآن الكريم","img":"https://i.etsystatic.com/18392610/r/il/f4adfd/2394406491/il_fullxfull.2394406491_7h2a.jpg"},
-          {"name": "بصوت قارئ", "url": "لقرآن الكريم","img":"https://tinyurl.com/2bzt6jg7"}]
+          {"name": "بصوت قارئ", "url": "لقرآن الكريم","img":"https://tinyurl.com/2bzt6jg7"},         
+              {"name": "بحث عن قارئ", "url": "لقرآن الكريم","img":"https://tinyurl.com/29wkz4fm"},
+                            {"name": "بحث عن سورة", "url": "لقرآن الكريم","img":"https://tinyurl.com/29wkz4fm"},
+
+              ]
+
+  
   return Categories
  
  

@@ -11,6 +11,7 @@ import xbmcvfs
 
 import channels_Qkareem as Qkareem
 import folder_qraa as Qraa
+from search import search
 def add_category():
   list_Categories=get_category.categories
  # Create the Kodi window
@@ -37,6 +38,7 @@ def main():
  show_Qraa= Qraa.folderQraa
 # show_Radiochannels=radio_channel.radio
  show_kareemchannel=Qkareem.Qkareem
+ show_keyboad=search()
   #add_category()
   #Parse the command-line arguments
  args = dict(urllib.parse.parse_qsl(sys.argv[2][1:]))
@@ -55,9 +57,13 @@ def main():
      
     elif  Category_index== 1:
      show_Qraa.Qraa()
-    pass
-  
- 
+     pass 
+    elif Category_index==2:
+     show_keyboad.Search_List_names()
+   
+     
+     pass
+
      
     
 
