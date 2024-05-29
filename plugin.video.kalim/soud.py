@@ -3,6 +3,19 @@ import xbmcaddon
 from bs4 import BeautifulSoup as bs
 import requests
 import os
+# source="https://surahquran.com/"
+def search_sor():
+  url="https://surahquran.com/"
+  response = requests.get(url)
+  soup = bs(response.content, "html.parser")
+  contians = soup.find_all("a", {"class": "button"})
+  Sour_quraan = []
+  for index, name in enumerate(contians ):
+         if "سور" in name.text:
+          Name = name.text.strip()
+          Sour_quraan .append({"name": Name})
+  return Sour_quraan
+  pass
  #name website quranpedia
 def Listnames():
     url = "https://surahquran.com/qura.html"

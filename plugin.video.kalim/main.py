@@ -63,6 +63,11 @@ def main():
    
      
      pass
+    elif Category_index==3:
+     show_keyboad.search_sora()
+   
+     
+     pass
 
      
     

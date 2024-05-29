@@ -59,13 +59,14 @@ class sour:
   def player_file(player):
 
     window = xbmcgui.Window(10000)
-    xbmcplugin.setContent(int(sys.argv[1]), "mp3" )
+    xbmcplugin.setContent(int(sys.argv[1]), ".mp3" )
 
   
     channel_list = xbmcgui.ListItem(label=player[0]["title"])
     channel_list.setInfo(type="video", infoLabels={"Title": player[0]["title"], "Genre": "تلاوة القرآن الكريم"})
     channel_list.setArt({'fanart': "https://tinyurl.com/2jr9txg6"})
     channel_list.setArt({'thumb': "https://tinyurl.com/2fdbj5qh"})
+    channel_list.setProperty("IsPlayable", "true")
     xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=player[0]["link"], listitem=channel_list, isFolder=False)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))  
    #  xbmcgui.Dialog().ok("", Url)
