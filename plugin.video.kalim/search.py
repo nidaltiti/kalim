@@ -94,7 +94,7 @@ class  search ():
   #def find_sora(self,soura,url):
   def get_soura(sel,list,getsoura):  #get soura form  folder  shachick الشيخ  folder  (البحث عن سورة))
    
-      xbmcgui.Dialog().ok("User Input", "You entered: " +getsoura)
+    #  xbmcgui.Dialog().ok("User Input", "You entered: " +getsoura)
     
        
       for index, souraName in enumerate(list):
@@ -106,6 +106,7 @@ class  search ():
       return  None
  #     xbmcgui.Dialog().ok("User Input",  soura )
   def player(self,player):
+       playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
        window = xbmcgui.Window(10000)
        xbmcplugin.setContent(int(sys.argv[1]), ".mp3" )
 
@@ -115,8 +116,12 @@ class  search ():
        channel_list.setArt({'fanart': "https://tinyurl.com/2jr9txg6"})
        channel_list.setArt({'thumb': "https://tinyurl.com/2fdbj5qh"})
        channel_list.setProperty("IsPlayable", "true")
-       xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=player[0]["link"], listitem=channel_list, isFolder=False)
+       url = f"{sys.argv[0]}?action=play&channel_url={urllib.parse.quote(player[0]['link'])}"
+       xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=channel_list, isFolder=False)
+       playlist.add(player[0]['link'], channel_list)
        xbmcplugin.endOfDirectory(int(sys.argv[1]))  
+       xbmc.Player().play(playlist)
+       playlist.clear()
      
        pass
   #    pass
@@ -166,9 +171,9 @@ class handly :
      sour_list=sond.list_sour(arr[0])
      sourastring=arr[1].replace("سورة","")
  #    xbmcgui.Dialog().ok("User Input", "You entered: " + sourastring)
-     get_source= self._search.get_soura(sour_list,sourastring)
-     xbmcgui.Dialog().ok("User Input", "You : " + get_source['href'])
-    # self._search.player(sond.Extract_Media(Get_soura['href']))
+     Get_source= self._search.get_soura(sour_list,sourastring)
+   #  xbmcgui.Dialog().ok("User Input", "You : " + Get_source['href'])
+     self._search.player(sond.Extract_Media(Get_source['href']))
 
    #  xbmcgui.Dialog().ok("User Input", "You entered: " + b['name'])
 
