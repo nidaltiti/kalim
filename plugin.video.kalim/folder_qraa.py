@@ -22,7 +22,7 @@ class folderQraa:
          channel_list.setInfo(type="video", infoLabels={"Title": channel["name"], "Genre":  channel["name"]})
         # channel_list.setArt({'fanart':channel["logo"]})
        #  channel_list.setArt({'thumb':channel["logo"]})
-       #  channel_list.setProperty("IsPlayable", "true")
+         channel_list.setProperty("IsPlayable", "true")
          xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url= sys.argv[0] +"?href=" +  channel["href"], listitem=channel_list, isFolder=True)
          
     xbmcplugin.endOfDirectory(int(sys.argv[1]))  
@@ -46,6 +46,7 @@ class sour:
     for index,soura,in enumerate(channels):
       channel_list = xbmcgui.ListItem(label=soura["name"])
       channel_list.setInfo(type="video", infoLabels={"Title": soura["name"], "Genre": soura["name"] })
+      channel_list.setProperty("IsPlayable", "true")
     #  self.dictionary[soura["href"]] = soura["name"]
 
       xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url= sys.argv[0] +"?sourahref="+soura["href"] , listitem=channel_list, isFolder=True)
